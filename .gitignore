@@ -1,0 +1,7 @@
+*Include
+*Scripts
+*Lib
+pip-selfcheck.json
+pyvenv.cfg
+*__pycache__/
+*.db
