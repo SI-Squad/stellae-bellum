@@ -59,5 +59,9 @@ def delete():
     db.session.commit()
     return redirect("/")
 
+@app.route("/add", methods=["GET", "POST"])
+def add():
+    return render_template("foxes.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
