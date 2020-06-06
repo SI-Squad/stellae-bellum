@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Foxes</h1>
+
+<p id="demo">Click the button for some foxes.</p>
+
+<button type="button" onclick="loadDoc()">Fox Button</button>
+<img id ="fox">
+<script>
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo").innerHTML = this.responseText;
+      var obj = JSON.parse(this.responseText);
+      console.log(this.response.txt);
+      document.getElementById("fox").src = obj.image;
+    }
+  };
+  
+  xhttp.open("GET", "https://cors-anywhere.herokuapp.com/https://randomfox.ca/floof/", true);
+  xhttp.send();
+}
+</script>
+
+</body>
+</html>

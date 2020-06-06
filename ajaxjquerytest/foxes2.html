@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+<div id="div1"><h2>The Fox Page</h2></div>        
+<button type="button" onclick="loadDoc()">Press for foxes</button>      
+</body>
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<img id = "fox">
+<script>
+
+function loadDoc(){
+$.ajax({
+    type: "GET",
+    url: "https://cors-anywhere.herokuapp.com/https://randomfox.ca/floof/",  
+    dataType: "json",
+    success: function (data) {
+        $('#fox').attr('src', data.image);
+    }
+ });
+};
+</script>
+</head>
+</html>
