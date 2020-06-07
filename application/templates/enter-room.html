@@ -11,24 +11,25 @@
     <link rel="stylesheet"  type="text/css" href="{{ url_for('static',filename='styles/signin.css') }}">
     <link rel="stylesheet"  type="text/css" href="{{ url_for('static',filename='styles/palette.css') }}">
     
-    <title>SB Create Room</title>
+    <title>SB Enter Room</title>
   </head>
   <body>
     <div class="container">
       <div class="row mx-auto">
-        <h1 class="display-3 text-center mx-auto" id="page-title">Create Room</h1>
+        <h1 class="display-3 text-center mx-auto" id="page-title">Enter Room</h1>
       </div>
       <div class="row"></div>
         <form>
           <div class="form-group">
-              <label for="newRoomName">Room Name</label>
+              <label for="enterRoomName">Room Name</label>
               <input type="text" class="form-control" placeholder="Stellae Bellum">
               <label for="username">Your Name</label>
               <input type="text" class="form-control" placeholder="Luke Bellum">
-              <label for="newRoomPassword">Room Password</label>
+              <label for="enterRoomPassword">Room Password</label>
               <input type="password" class="form-control" placeholder="p@$$w0rd">
           </div>
-          <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit">Create Room</button>
+          <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit">Enter Room</button>
+          <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit">Return Home</button>
         </form>
       </div>
     </div>
