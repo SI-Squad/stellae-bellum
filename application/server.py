@@ -22,6 +22,10 @@ import models
 def home():
     return render_template("home.html")
 
+@app.route('/create-room', methods=["GET", "POST"])
+def create_room():
+    return render_template("create-room.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
