@@ -30,6 +30,10 @@ def create_room():
 def enter_room():
     return render_template("enter-room.html")
 
+@app.route('/waiting-room', methods=["GET", "POST"])
+def waiting_room():
+    return render_template("waiting-room.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
