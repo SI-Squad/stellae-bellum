@@ -34,6 +34,10 @@ def enter_room():
 def waiting_room():
     return render_template("waiting-room.html")
 
+@app.route('/open-room', methods=["GET", "POST"])
+def open_room():
+    return render_template("open-room.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
