@@ -22,6 +22,17 @@ import models
 def home():
     return render_template("home.html")
 
+@app.route('/gameover', methods=["GET", "POST"])
+def gameover():
+    return render_template("gameover.html")
+
+@app.route('/gameroom', methods=["GET", "POST"])
+def gameroom():
+    return render_template("gameroom.html")
+
+@app.route('/build', methods=["GET", "POST"])
+def build():
+    return render_template("build.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
