@@ -23,5 +23,13 @@ def home():
     return render_template("home.html")
 
 
+@app.route('create-room-form', methods=["POST"])
+def handle_create_room_form():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        room_name = request.form.get('room-name')
+        room_password = request.form.get('room_password')
+
+
 if __name__ == "__main__":
     app.run(debug=True)
