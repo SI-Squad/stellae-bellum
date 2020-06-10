@@ -11,19 +11,33 @@
     <link rel="stylesheet"  type="text/css" href="{{ url_for('static',filename='styles/signin.css') }}">
     <link rel="stylesheet"  type="text/css" href="{{ url_for('static',filename='styles/palette.css') }}">
     
-    <title>Stellae Bellum</title>
+    <title>SB Create Room</title>
   </head>
   <body style="background-color: #BDBDBD;">
     <div class="container">
       <div class="row mx-auto">
-        <h1 class="display-3 text-center mx-auto" id="page-title">Stellae Bellum</h1>
+        <h1 class="display-3 text-center mx-auto" id="page-title">Open Room</h1>
       </div>
       <div class="row"></div>
-        <form class="form-signin">
-          <div class="checkbox mb-3">
+        <form>
+          <div class="form-group">
+            <label for="username">Your Name</label>
+            <input type="text" class="form-control" placeholder="Luke Bellum" readonly>
+            <label for="newRoomName">Room Name</label>
+            <input type="text" class="form-control" placeholder="Stellae Bellum" readonly>
+            <label for="newRoomPassword">Room Password</label>
+            <input type="password" class="form-control" placeholder="p@$$w0rd" readonly>
+            <label for="newRoomPassword">Players in Room</label>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Yan</li>
+                <li class="list-group-item">Marissa</li>
+                <li class="list-group-item">Alec</li>
+                <li class="list-group-item">Alex</li>
+                <li class="list-group-item">Mayo</li>
+            </ul>
           </div>
-          <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit">Create Room</button>
-          <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit">Join Room</button>
+          <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit">Share Room</button>
+          <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit">Delete Room</button>
         </form>
       </div>
     </div>
