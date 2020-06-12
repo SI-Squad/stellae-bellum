@@ -123,14 +123,35 @@ def create_board_endpoint():
     This endpoint should be called from the create-board page.
     """
     if request.method == 'POST':
-        print(request.json)
         content = request.json
         name = content["name"]
-        coordinates = content["coordinates"]
+        ships = content["ships"]
 
-        # TODO: Create all the cells
-        # TODO: Create all the pieces
-        # TODO: Create the board
+        # TODO: Add player id when it becomes available
+        board_object = models.Board()
+        db.session.add(board_object)
+        db.session.commit()
+
+        for ship in ships:
+            ship_type = ship["type"]
+            cells = ship["cells"]
+
+            ship_object = models.Piece(piece_type=ship_type, cell_count=len(cells), board_id=board_object.id)
+            db.session.add(ship_object)
+            db.session.commit()
+
+            for cell in cells:
+                cell_object = models.Cell(piece_id=ship_object.id, board_id=board_object.id, row=cell["row"], column=cell["col"])
+                db.session.add(cell_object)
+                db.session.commit()
+
+        # The following lines are for debugging/understanding purposes
+        boards = models.Board.query.all()
+        ships = models.Piece.query.all()
+        cells = models.Cell.query.all()
+        print(boards)
+        print(ships)
+        print(cells)
 
         return redirect("/gameroom")
 

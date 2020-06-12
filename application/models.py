@@ -9,35 +9,35 @@ class Cell(db.Model):
     damaged = db.Column(db.Boolean, nullable=False, default=False)
     revealed = db.Column(db.Boolean, nullable=False, default=False)
 
+    def __repr__(self):
+        return "<Cell: id={}, piece_id={}, board_id={}, row={}, column={}, damaged={}, revealed={}>".format(self.id, self.piece_id, self.board_id, self.row, self.column, self.damaged, self.revealed)
+
 
 class Piece(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    peicetype = db.Column(db.String(255), nullable=False)
-    cellCount = db.Column(db.Integer, nullable=False)
-    cells = db.relationship('Cell', backref='piece')
+    piece_type = db.Column(db.String(255), nullable=False)
+    cell_count = db.Column(db.Integer, nullable=False)
     board_id = db.Column(db.Integer, db.ForeignKey('board.id'))
+
+    def __repr__(self):
+        return "<Piece: id={}, piece_type={}, cell_count={}, board_id={}>".format(self.id, self.piece_type, self.cell_count, self.board_id)
 
 
 class Board(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     owner_id = db.Column(db.Integer, db.ForeignKey('player.id'))
-    pieces = db.relationship('Piece', backref='board')
-    cells = db.relationship('Cell', backref='board')
 
 
 class Player(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     color = db.Column(db.String(255), nullable=False)
-    board = db.relationship('Board', backref='player') 
-    cards = db.relationship('Card', backref='player')
 
 
 class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    players = db.relationship('Player', backref='Game')
-    name = db.Column(db.String(255), nullable=False)
-    password = db.Column(db.String(255), nullable=False)
+    room_name = db.Column(db.String(255), nullable=False)
+    room_password = db.Column(db.String(255), nullable=False)
 
 
 class Card(db.Model):
@@ -49,6 +49,4 @@ class Card(db.Model):
 class Cardtype(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.String(255), nullable=False)
-    cards = db.relationship('Card', backref='cardtype')
-    
+    description = db.Column(db.String(255), nullable=False)    
