@@ -123,7 +123,8 @@ def create_board_endpoint():
     This endpoint should be called from the create-board page.
     """
     if request.method == 'POST':
-        content = request.json
+        content = request.get_json(force=True)
+        print(content)
         name = content["name"]
         ships = content["ships"]
 

@@ -11,6 +11,10 @@ function getCells(){
     return cells;
 }
 
+function sendJSON(object){
+    $.post("http://127.0.0.1:5000/create-board-endpoint", object, function(data,status){},"json");
+    };
+
 function getBoard(){
     console.log("Got Here.");
     var cells = getCells();
@@ -27,5 +31,8 @@ function getBoard(){
             }
         }
     }
+    sendJSON(JSON.stringify(board));
+    
     console.log(JSON.stringify(board));
+
 }
