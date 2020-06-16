@@ -11,8 +11,23 @@
 
     <link rel="stylesheet"  type="text/css" href="{{ url_for('static',filename='styles/signin.css') }}">
     <link rel="stylesheet"  type="text/css" href="{{ url_for('static',filename='styles/palette.css') }}">
-    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--
+    <script>
+      $(document).ready(function(){
+        $("button").click(function(){
+          $.getJSON("/update-room-participants", function(result){
+            $.each(result, function(i, field){
+              $("div").append(field + " ");
+            });
+          });
+        });
+      });
+      </script>
+    -->
     <title>SB Waiting Room</title>
+
   </head>
   <body style="background-color: #BDBDBD;">
     <div class="container">
@@ -30,15 +45,32 @@
       </div>
       <div class="row mx-auto">
         <div class="col align-self-center"></div>
-        <div class="col align-self-center">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item" style="background: #BDBDBD;">Yan</li>
-            <li class="list-group-item" style="background: #BDBDBD;">Marissa</li>
-            <li class="list-group-item" style="background: #BDBDBD;">Alec</li>
-            <li class="list-group-item" style="background: #BDBDBD;">Alex</li>
-            <li class="list-group-item" style="background: #BDBDBD;">Mayo</li>
-          </ul>
+        <div class="col align-self-center" id="list">
+          <form action="#" method="GET">
+            <input type="text" class="form-control" placeholder="Luke Bellum" readonly>
+            <input type="text" class="form-control" name="nm" placeholder="Luke Bellum2" readonly>
+          </form>
         </div>
+        <button type="button" id="btn">Press for names</button> 
+
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+      <script type="application/javascript">
+        $(document).ready(function(){
+           $.getJSON("/update-room-participants",function(data){
+               console.log(data.j);
+               var items =  [];
+               $.each(data.j, function(key, value){
+               console.log(key);
+               console.log(value);
+               items.push('<li id=" ' + value.id + '">' + value.username+    '</li>');
+           });
+           $('<ul/>', {
+               'class': 'interest-list',
+               html : items.join('')
+           }).appendTo('body')
+           });
+       });
+       </script>
       <div class="col"></div>
       </div>
     </div>

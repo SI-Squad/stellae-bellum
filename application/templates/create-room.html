@@ -19,16 +19,16 @@
         <h1 class="display-3 text-center mx-auto" id="page-title">Create Room</h1>
       </div>
       <div class="row"></div>
-        <form>
+        <form action="/create-room-form" method="POST">
           <div class="form-group">
-            <label for="username">Your Name</label>
-            <input type="text" class="form-control" placeholder="Luke Bellum">
-            <label for="newRoomName">Room Name</label>
-            <input type="text" class="form-control" placeholder="Stellae Bellum">
-            <label for="newRoomPassword">Room Password</label>
-            <input type="password" class="form-control" placeholder="p@$$w0rd">
-            <label for="newRoomPassword">Confirm Room Password</label>
-            <input type="password" class="form-control" placeholder="p@$$w0rd">
+            <label for="name">Your Name</label>
+            <input type="text" class="form-control" name="name" placeholder="Luke Bellum" required>
+            <label for="room-name">Room Name</label>
+            <input type="text" class="form-control" name="room-name" placeholder="Stellae Bellum" required>
+            <label for="room-password">Room Password</label>
+            <input type="password" class="form-control" name="room-password" placeholder="p@$$w0rd" required>
+            <label for="confirm-room-password">Confirm Room Password</label>
+            <input type="password" class="form-control" name="confirmed-room-password" placeholder="p@$$w0rd" required>
           </div>
           <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit">Create Room</button>
           <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit">Return Home</button>

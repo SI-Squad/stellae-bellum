@@ -19,14 +19,14 @@
         <h1 class="display-3 text-center mx-auto" id="page-title">Enter Room</h1>
       </div>
       <div class="row"></div>
-        <form>
+        <form action="/handle_join_room_form" method="POST">
           <div class="form-group">
             <label for="username">Your Name</label>
-            <input type="text" class="form-control" placeholder="Luke Bellum">
+            <input type="text" class="form-control" name="name" placeholder="Luke Bellum">
             <label for="enterRoomName">Room Name</label>
-            <input type="text" class="form-control" placeholder="Stellae Bellum">
+            <input type="text" class="form-control" name="room-name" placeholder="Stellae Bellum">
             <label for="enterRoomPassword">Room Password</label>
-            <input type="password" class="form-control" placeholder="p@$$w0rd">
+            <input type="password" class="form-control" name="room-password" placeholder="p@$$w0rd">
           </div>
           <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit">Enter Room</button>
           <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit">Return Home</button>
