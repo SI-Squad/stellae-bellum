@@ -68,7 +68,7 @@ def handle_create_room_form():
         if room_password == confirmed_password:
             # TODO: Add user to database
             # TODO: Add room to database
-            return redirect('/waiting-room')
+            return redirect('/open-room')
         else:
             return redirect('/create-room')
     else:
