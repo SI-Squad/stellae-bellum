@@ -10,6 +10,8 @@
 
     <link rel="stylesheet"  type="text/css" href="{{ url_for('static',filename='styles/signin.css') }}">
     <link rel="stylesheet"  type="text/css" href="{{ url_for('static',filename='styles/palette.css') }}">
+
+    <script src="{{ url_for('static',filename='js/storage-utilities.js') }}"></script>
     
     <title>SB Enter Room</title>
   </head>
@@ -22,14 +24,14 @@
         <form action="/join-room-form" method="POST">
           <div class="form-group">
             <label for="username">Your Name</label>
-            <input type="text" class="form-control" name="name" placeholder="Luke Bellum">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Luke Bellum">
             <label for="enterRoomName">Room Name</label>
-            <input type="text" class="form-control" name="room-name" placeholder="Stellae Bellum">
+            <input type="text" class="form-control" id="room-name" name="room-name" placeholder="Stellae Bellum">
             <label for="enterRoomPassword">Room Password</label>
             <input type="password" class="form-control" name="room-password" placeholder="p@$$w0rd">
           </div>
-          <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit">Enter Room</button>
-          <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit">Return Home</button>
+          <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit" onclick="setUsername(document.getElementById('name').value); setRoomName(document.getElementById('room-name').value)">Enter Room</button>
+          <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit" onclick="clearLocalStorage()">Return Home</button>
         </form>
       </div>
     </div>
