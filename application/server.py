@@ -66,8 +66,8 @@ def handle_create_room_form():
         confirmed_password = request.form.get('confirmed-room-password')
 
         if room_password == confirmed_password:
-            # TODO: Add user to database
-            # TODO: Add room to database
+            # TODO: Add game/room to database
+            # TODO: Add user to database (this will require using the game's id)
             return redirect('/waiting-room')
         else:
             return redirect('/create-room')
@@ -89,6 +89,7 @@ def handle_join_room_form():
         # TODO: Look for room in database
 
         if room_password == "correct": # TODO: Verify password is correct
+            # TODO: create a new player in the database (you'll need the game's id)
             return redirect('/waiting-room')
         else:
             return redirect('/enter-room')

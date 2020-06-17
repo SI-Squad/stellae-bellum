@@ -32,6 +32,7 @@ class Player(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     color = db.Column(db.String(255), nullable=False)
+    game_id = db.Column(db.Integer, primary_key=True)
 
 
 class Game(db.Model):
