@@ -38,6 +38,26 @@
           </form>
           <table id="partList" class="table"><tbody></tbody></table>
         </div>
+        <button type="button" id="btn">Press for names</button> 
+
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+      <script type="application/javascript">
+        $(document).ready(function(){
+           $.getJSON("/update-room-participants",function(data){
+               console.log(data.j);
+               var items =  [];
+               $.each(data.j, function(key, value){
+               console.log(key);
+               console.log(value);
+               items.push('<li id=" ' + value.id + '">' + value.username+    '</li>');
+           });
+           $('<ul/>', {
+               'class': 'interest-list',
+               html : items.join('')
+           }).appendTo('body')
+           });
+       });
+       </script>
       <div class="col"></div>
       </div>
     </div>
