@@ -8,3 +8,4 @@ pyvenv.cfg
 *.vscode
 *.pytest_cache
 *env
+*.db-journal

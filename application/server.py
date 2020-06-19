@@ -134,17 +134,23 @@ def create_board_endpoint():
         db.session.add(board_object)
         db.session.commit()
 
+        for row in range(10):
+            for col in range(10):
+                cell_object = models.Cell(board_id=board_object.id, row=row, column=col)
+                db.session.add(cell_object)
+                db.session.commit()
+
         for ship in ships:
             ship_type = ship["type"]
-            cells = ship["cells"]
+            player_cells = ship["cells"]
 
-            ship_object = models.Piece(piece_type=ship_type, cell_count=len(cells), board_id=board_object.id)
+            ship_object = models.Piece(piece_type=ship_type, cell_count=len(player_cells), board_id=board_object.id)
             db.session.add(ship_object)
             db.session.commit()
 
-            for cell in cells:
-                cell_object = models.Cell(piece_id=ship_object.id, board_id=board_object.id, row=cell["row"], column=cell["col"])
-                db.session.add(cell_object)
+            for cell in player_cells:
+                empty_cell = models.Cell.query.filter_by(board_id=board_object.id, row=cell["row"], column=cell["col"]).first()
+                empty_cell.piece_id = ship_object.id
                 db.session.commit()
 
         # The following lines are for debugging/understanding purposes
