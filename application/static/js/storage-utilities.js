@@ -1,20 +1,20 @@
 function setUsername(username){
-    localStorage.setItem("username", username);
+    sessionStorage.setItem("username", username);
 }
 
 function getUsername(){
-    localStorage.getItem("username");
+    return sessionStorage.getItem("username");
 }
 
 function setRoomName(roomName){
-    localStorage.setItem("roomName", roomName);
+    sessionStorage.setItem("roomName", roomName);
 }
 
 function getRoomName(){
-    localStorage.getItem("roomName");
+    return sessionStorage.getItem("roomName");
 }
 
 function clearLocalStorage(){
-    localStorage.removeItem("username");
-    localStorage.removeItem("roomName");
+    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("roomName");
 }
