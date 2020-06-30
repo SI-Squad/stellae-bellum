@@ -37,40 +37,24 @@
         <div class="col align-self-center"></div>
         <div class="col align-self-center" id="list">
           <form action="#" method="GET" id="list2">
-            <input type="text" class="form-control" placeholder="Luke Bellum" readonly>
           </form>
-          <table id="partList" class="table"><tbody></tbody></table>
-          -->
           <div id="list"></div>
           <script>
             console.log("reached here");
-            /**
-            $(document).ready(function(){
-              var posting = $.post('update-room-participants',getRoomName());
-              posting.done(function(data){
-                var content = $(data).find("#content");
-                $("#list").append(content);
-                console.log(JSON.stringify(data))
-              });
-            */
              $(document).ready(function(){setInterval(function(){
                $.ajax({
                  url: '/update-room-participants',
                  type: 'POST',
                  success: function(data){
-                   //$('#list2').html(data);
                    document.getElementById('list').innerHTML = '';
                    data.forEach(element => {
-                     $('#list').append('<p>' + element + '</p>');
+                     $('#list').append('<input type="text" class="form-control" placeholder="' + element + '" style="cursor: default;" readonly>');
                    });
                    console.log(JSON.stringify(data));
                  }
                });
-              }, 5000);
+              }, 3000);
              });
-             
-              //console.log(JSON.stringify(data));
-            //});
           </script>
         </div>
 
