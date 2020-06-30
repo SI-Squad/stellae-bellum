@@ -53,12 +53,6 @@ def open_room():
     return render_template("open-room.html")
 
 
-def __repr__(self):
-        return "<Player: id={}, name={}, color={}, game_id={}>".format(self.id, self.name, self.color, self.game_id)
-
-def __repr2__(self):
-        return "<Game: id={}, room_name={}, room_password={}>".format(self.id, self.room_name, self.room_password)
-
 @app.route('/create-room-form', methods=["POST"])
 def handle_create_room_form():
     """
@@ -76,18 +70,16 @@ def handle_create_room_form():
             db.session.add(game_object)
             db.session.commit()
 
-            # color = randrange(1,255)
+            # color = randrange(1,255) DOES NOT RANDOMIZE COLOR PER PLAYER
             newp = models.Player(name=name, color="#CCFF00", game_id=game_object.id)
             db.session.add(newp)
             db.session.commit()
 
             players = models.Player.query.all()
-            for player in players:
-                print(__repr__(player))
+            print(players)
             
             games = models.Game.query.all()
-            for game in games:
-                print(__repr2__(game))
+            print(games)
             
             return redirect('/waiting-room')
         else:
@@ -107,23 +99,18 @@ def handle_join_room_form():
         room_name = request.form.get('room-name')
         room_password = request.form.get('room-password')
 
-        games = models.Game.query.all()
-        
-        for game in games:
-            game = models.Game.query.filter_by(room_name=room_name, room_password=room_password).first()
-            if game.room_name == room_name:
-                if game.room_password == room_password:
-                    newp = models.Player(name=name, color="#CCFF00", game_id=game.id)
-                    db.session.add(newp)
-                    db.session.commit()
+        game = models.Game.query.filter_by(room_name=room_name, room_password=room_password).first()
+        newp = models.Player(name=name, color="#CCFF00", game_id=game.id)
+        db.session.add(newp)
+        db.session.commit()
                     
-                    players = models.Player.query.all()
-                    print(players)
-                    games = models.Game.query.all()
-                    print(games)
-                    return redirect('/waiting-room')
-            else:
-                return redirect('/enter-room')
+        players = models.Player.query.all()
+        print(players)
+
+        games = models.Game.query.all()
+        print(games)
+
+        return redirect('/waiting-room')
     else:
         return redirect('/enter-room')
 
