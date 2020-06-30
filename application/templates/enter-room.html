@@ -10,8 +10,6 @@
 
     <link rel="stylesheet"  type="text/css" href="{{ url_for('static',filename='styles/signin.css') }}">
     <link rel="stylesheet"  type="text/css" href="{{ url_for('static',filename='styles/palette.css') }}">
-
-    <script src="{{ url_for('static',filename='js/storage-utilities.js') }}"></script>
     
     <title>SB Enter Room</title>
   </head>
@@ -21,25 +19,17 @@
         <h1 class="display-3 text-center mx-auto" id="page-title">Enter Room</h1>
       </div>
       <div class="row"></div>
-<<<<<<< HEAD
-<<<<<<< HEAD
         <form action="/join-room-form" method="POST">
-=======
-        <form action="/handle_join_room_form" method="POST">
->>>>>>> trying to figure out how to get data from server to client
-=======
-        <form action="/join-room-form" method="POST">
->>>>>>> fixed an issue with the enter-room endpoint
           <div class="form-group">
             <label for="username">Your Name</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Luke Bellum">
+            <input type="text" class="form-control" name="name" placeholder="Luke Bellum" required>
             <label for="enterRoomName">Room Name</label>
-            <input type="text" class="form-control" id="room-name" name="room-name" placeholder="Stellae Bellum">
+            <input type="text" class="form-control" name="room-name" placeholder="Stellae Bellum" required>
             <label for="enterRoomPassword">Room Password</label>
-            <input type="password" class="form-control" name="room-password" placeholder="p@$$w0rd">
+            <input type="password" class="form-control" name="room-password" placeholder="p@$$w0rd" required>
           </div>
           <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit" onclick="setUsername(document.getElementById('name').value); setRoomName(document.getElementById('room-name').value)">Enter Room</button>
-          <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit" onclick="clearLocalStorage()">Return Home</button>
+          <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit" onclick="clearLocalStorage(); document.location='/'">Return Home</button>
         </form>
       </div>
     </div>
