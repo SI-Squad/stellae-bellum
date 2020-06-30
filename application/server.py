@@ -75,15 +75,11 @@ def handle_create_room_form():
             db.session.add(newp)
             db.session.commit()
 
-            players = models.Player.query.all()
+            players = models.Player.query.all() # these four lines are for testing purposes
             print(players)
-            
             games = models.Game.query.all()
             print(games)
-            
             return redirect('/waiting-room')
-        else:
-            return redirect('/create-room')
     else:
         return redirect('/create-room')
 
@@ -99,18 +95,17 @@ def handle_join_room_form():
         room_name = request.form.get('room-name')
         room_password = request.form.get('room-password')
 
-        game = models.Game.query.filter_by(room_name=room_name, room_password=room_password).first()
-        newp = models.Player(name=name, color="#CCFF00", game_id=game.id)
-        db.session.add(newp)
-        db.session.commit()
-                    
-        players = models.Player.query.all()
-        print(players)
+        game = models.Game.query.filter_by(room_name=room_name).first()
+        if room_password == game.room_password:
+            newp = models.Player(name=name, color="#CCFF00", game_id=game.id)
+            db.session.add(newp)
+            db.session.commit()
 
-        games = models.Game.query.all()
-        print(games)
-
-        return redirect('/waiting-room')
+            players = models.Player.query.all() # these four lines are for testing purposes
+            print(players)
+            games = models.Game.query.all()
+            print(games)
+            return redirect('/waiting-room')
     else:
         return redirect('/enter-room')
 
