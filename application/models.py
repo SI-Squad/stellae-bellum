@@ -34,11 +34,17 @@ class Player(db.Model):
     color = db.Column(db.String(255), nullable=False)
     game_id = db.Column(db.Integer, nullable=False)
 
+    def __repr__(self):
+        return "<Player: id={}, name={}, color={}, game_id={}>".format(self.id, self.name, self.color, self.game_id)
+
 
 class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     room_name = db.Column(db.String(255), nullable=False)
     room_password = db.Column(db.String(255), nullable=False)
+
+    def __repr__(self):
+        return "<Game: id={}, room_name={}, room_password={}>".format(self.id, self.room_name, self.room_password)
 
 
 class Card(db.Model):
