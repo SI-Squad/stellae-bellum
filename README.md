@@ -13,7 +13,8 @@ If you already have a virtual environment and a database, follow these steps:
 
 1. Activate the environment: `env/Scripts/activate`
     for mac users: `. env/bin/activate`
-2. Run the application with `python server.py`
+2. Go into the application directory with `cd application`
+3. Run the application with `python server.py`
 
 To run the tests:
 

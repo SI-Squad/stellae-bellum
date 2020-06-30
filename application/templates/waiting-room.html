@@ -36,7 +36,7 @@
       <div class="row mx-auto">
         <div class="col align-self-center"></div>
         <div class="col align-self-center" id="list">
-          <form action="#" method="GET">
+          <form action="#" method="GET" id="list2">
             <input type="text" class="form-control" placeholder="Luke Bellum" readonly>
           </form>
           <table id="partList" class="table"><tbody></tbody></table>
@@ -53,15 +53,20 @@
                 console.log(JSON.stringify(data))
               });
             */
-             $(document).ready(function(){
+             $(document).ready(function(){setInterval(function(){
                $.ajax({
                  url: '/update-room-participants',
                  type: 'POST',
                  success: function(data){
-                   $('#list').html(data);
+                   //$('#list2').html(data);
+                   document.getElementById('list').innerHTML = '';
+                   data.forEach(element => {
+                     $('#list').append('<p>' + element + '</p>');
+                   });
                    console.log(JSON.stringify(data));
                  }
                });
+              }, 5000);
              });
              
               //console.log(JSON.stringify(data));
