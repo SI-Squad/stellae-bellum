@@ -66,13 +66,6 @@ def handle_create_room_form():
         confirmed_password = request.form.get('confirmed-room-password')
 
         if room_password == confirmed_password:
-<<<<<<< HEAD
-            # TODO: Add user to database
-            # TODO: Add room to database
-            return redirect('/open-room')
-        else:
-            return redirect('/create-room')
-=======
             game_object = models.Game(room_name=room_name, room_password=room_password)
             db.session.add(game_object)
             db.session.commit()
@@ -87,7 +80,6 @@ def handle_create_room_form():
             games = models.Game.query.all()
             print(games)
             return redirect('/waiting-room')
->>>>>>> master
     else:
         return redirect('/create-room')
 
