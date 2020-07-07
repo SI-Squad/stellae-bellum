@@ -177,6 +177,15 @@ def create_board_endpoint():
         return redirect("/gameroom")
 
 
+@app.route('/get-board', methods=["POST"])
+def get_board():
+    if request.method == 'POST':
+        content = request.get_json(force=True)
+        username = content["name"]
+
+        player = models.Player.query.filter_by(player_name=name).first()
+        board = models.Board.query.filter_by(owner_id=player.id).first()
+
 
 if __name__ == "__main__":
     app.run(debug=True)
