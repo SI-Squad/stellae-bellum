@@ -118,15 +118,14 @@ def update_room_participants():
     """
     mock_participants = ["Alec", "Alex", "Marissa", "Mayo", "Yan"]
     if request.method == 'POST':
-        room_name = request.form.get('room-name')
+        room_name = request.values.get('room-name')
+        print(room_name)
+        games = models.Game.query.all()
+        print(games)
+        game = models.Game.query.filter_by(room_name=room_name).first()
+        players = models.Player.query.filter_by(game_id=game.id).all()
 
-        # TODO: Get the participants in the room from the database
-
-        participants = []
-        for participant in mock_participants:
-            roll = random.randint(0,1)
-            if roll == 1 and participant not in participants:
-                participants.append(participant)
+        participants = [player.name for player in players]
 
         return jsonify(participants)
         
@@ -142,8 +141,9 @@ def create_board_endpoint():
         name = content["name"]
         ships = content["ships"]
 
-        # TODO: Add player id when it becomes available
-        board_object = models.Board()
+        player = models.Player.query.filter_by(name=name).first()
+
+        board_object = models.Board(owner_id=player.id)
         db.session.add(board_object)
         db.session.commit()
 
