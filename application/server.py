@@ -220,13 +220,17 @@ def get_competitors_board():
         room_name = request.form.get('room-name')
         username = request.form.get('username')    
 
-        # TODO: Get the participants in the room from the database
+        game = models.Game.query.filter_by(room_name=room_name).first()    
+        players = models.Player.query.filter_by(game_id=game.id).all()
+        participants = [player.name for player in players]
 
         participants = []
-        boards = ["name1":"board1", "name2":"board2"]
+        boards = dict()
+        boards["name1"] = "board1"
+        boards["name2"] = "board2"
         participants.remove(username)
         for participant in participants:
-            boards[participant] = "get board" # TODO: get participant's board
+            boards[participant] = get_board_helper(participant)
             
         return jsonify(boards)
 
