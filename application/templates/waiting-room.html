@@ -18,6 +18,8 @@
     
     <title>SB Waiting Room</title>
 
+    <script src="{{ url_for('static',filename='js/storage-utilities.js') }}"></script>
+
   </head>
   <body>
     <div class="container">
@@ -46,6 +48,7 @@
                $.ajax({
                  url: '/update-room-participants',
                  type: 'POST',
+                 data: { 'room-name': getRoomName()},
                  success: function(data){
                    document.getElementById('list').innerHTML = '';
                    data.forEach(element => {
