@@ -176,7 +176,21 @@ def create_board_endpoint():
 
         return redirect("/gameroom")
 
+@app.route('/get-competitors-boards', methods=["POST"])
+def get_competitors_board():
+    if request.method == 'POST':
+        room_name = request.form.get('room-name')
+        username = request.form.get('username')
 
+        # TODO: Get the participants in the room from the database
+
+        participants = []
+        boards = ["name1":"board1", "name2":"board2"]
+        participants.remove(username)
+        for participant in participants:
+            boards[participant] = "get board" # TODO: get participant's board
+            
+        return jsonify(boards)
 
 if __name__ == "__main__":
     app.run(debug=True)
