@@ -127,19 +127,18 @@ def update_room_participants():
     This endpoint should be called from the waiting-room page on an interval
     Every response should be the latest list of participants in the room
     """
-    mock_participants = ["Alec", "Alex", "Marissa", "Mayo", "Yan"]
     if request.method == 'POST':
-        room_name = request.form.get('room-name')
+        room_name = request.values.get('room-name')
 
-        # TODO: Get the participants in the room from the database
+        game = models.Game.query.filter_by(room_name=room_name).first()
+        if (game == None):
+            return "Oopsies. Looks like something went wrong"
+        else:     
+            players = models.Player.query.filter_by(game_id=game.id).all()
 
-        participants = []
-        for participant in mock_participants:
-            roll = random.randint(0,1)
-            if roll == 1 and participant not in participants:
-                participants.append(participant)
+            participants = [player.name for player in players]
 
-        return jsonify(participants)
+            return jsonify(participants)
         
 
 @app.route('/create-board-endpoint', methods=["POST"])
@@ -153,8 +152,11 @@ def create_board_endpoint():
         name = content["name"]
         ships = content["ships"]
 
-        # TODO: Add player id when it becomes available
-        board_object = models.Board()
+        player = models.Player.query.filter_by(name=name).first()
+        if player == None:
+            return "Oopsies. Something went wrong :("
+
+        board_object = models.Board(owner_id=player.id)
         db.session.add(board_object)
         db.session.commit()
 
@@ -185,8 +187,46 @@ def create_board_endpoint():
         print(ships)
         print(cells)
 
-        return redirect("/gameroom")
+        resp = jsonify(success=True)
+        return resp # The client will handle redirecting to the right page
 
+
+@app.route('/get-board', methods=["POST"])
+def get_board():
+    if request.method == 'POST':
+        content = request.get_json(force=True)
+        username = content["name"]
+        respose = get_board_helper(username)
+        return respose
+
+
+def get_board_helper(username):
+    player = models.Player.query.filter_by(name=username).first()
+    board = models.Board.query.filter_by(owner_id=player.id).first()
+
+    if board == None:
+        return {}
+    else:
+        response = {
+            "board" : []
+        }
+        for i in range(10):
+            row = []
+            for j in range(10):
+                cell = models.Cell.query.filter_by(board_id=board.id, row=i, column=j).first()
+                if cell.damaged and cell.revealed:
+                    row.append("X")
+                elif cell.damaged:
+                    row.append("#")
+                elif cell.revealed:
+                    row.append("O")
+                else:
+                    row.append(".")
+            response["board"].append(row)
+        return response
+
+
+    
 
 
 if __name__ == "__main__":

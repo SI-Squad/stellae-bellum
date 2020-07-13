@@ -11,8 +11,15 @@
 
     <link rel="stylesheet"  type="text/css" href="{{ url_for('static',filename='styles/signin.css') }}">
     <link rel="stylesheet"  type="text/css" href="{{ url_for('static',filename='styles/palette.css') }}">
+
+    <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" ></script>
+
+    <script src="{{ url_for('static',filename='js/storage-utilities.js') }}"></script>
     
     <title>SB Waiting Room</title>
+
+    <script src="{{ url_for('static',filename='js/storage-utilities.js') }}"></script>
+
   </head>
   <body style="background-color: #BDBDBD;">
     <div class="container">
@@ -31,21 +38,38 @@
       <div class="row mx-auto">
         <div class="col align-self-center"></div>
         <div class="col align-self-center">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item" style="background: #BDBDBD;">Yan</li>
-            <li class="list-group-item" style="background: #BDBDBD;">Marissa</li>
-            <li class="list-group-item" style="background: #BDBDBD;">Alec</li>
-            <li class="list-group-item" style="background: #BDBDBD;">Alex</li>
-            <li class="list-group-item" style="background: #BDBDBD;">Mayo</li>
-          </ul>
+          <form action="#" method="GET" id="list2">
+            <button class="btn btn-lg btn-primary btn-block default-primary-color" type="button" onclick="document.location='/build'">Create Board</button>
+          </form>
+          <div id="list"></div>
+          <script>
+            console.log("reached here");
+             $(document).ready(function(){setInterval(function(){
+               $.ajax({
+                 url: '/update-room-participants',
+                 type: 'POST',
+                 data: { 'room-name': getRoomName()},
+                 success: function(data){
+                   document.getElementById('list').innerHTML = '';
+                   data.forEach(element => {
+                     $('#list').append('<input type="text" class="form-control" placeholder="' + element + '" style="cursor: default;" readonly>');
+                   });
+                   console.log(JSON.stringify(data));
+                 }
+               });
+              }, 3000);
+             });
+          </script>
         </div>
+
       <div class="col"></div>
       </div>
     </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
