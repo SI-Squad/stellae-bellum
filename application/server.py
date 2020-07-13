@@ -42,7 +42,7 @@ def create_room():
 
 @app.route('/enter-room', methods=["GET", "POST"])
 def enter_room():
-    return render_template("enter-room.html", error="error message")
+    return render_template("enter-room.html")
 
 @app.route('/waiting-room', methods=["GET", "POST"])
 def waiting_room():
