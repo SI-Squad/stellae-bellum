@@ -21,7 +21,12 @@
         <h1 class="display-3 text-center mx-auto" id="page-title">Enter Room</h1>
       </div>
       <div class="row"></div>
+
+      {{error}}
+        <form>
+
         <form action="/join-room-form" method="POST">
+          
           <div class="form-group">
             <label for="username">Your Name</label>
             <input type="text" class="form-control" id="name" name="name" placeholder="Luke Bellum" required>

@@ -95,8 +95,19 @@ def handle_join_room_form():
         room_name = request.form.get('room-name')
         room_password = request.form.get('room-password')
 
+        if name == None or name == "":
+            return render_template("/enter-room.html", error="All fields must be filled")
+        elif room_name == None or room_name == "":
+            return render_template("/enter-room.html", error="Room requires a name")
+        elif room_password == None or room_password == "":
+            return render_template("/enter-room.html", error="Password required")
+        
         game = models.Game.query.filter_by(room_name=room_name).first()
-        if room_password == game.room_password:
+        if game == None or game == "":
+            return render_template("/enter-room.html", error="Game with that name does not exist")
+        if room_password != game.room_password:
+            return render_template("/enter-room.html", error="Incorrect password")
+        elif room_password == game.room_password:
             newp = models.Player(name=name, color="#CCFF00", game_id=game.id)
             db.session.add(newp)
             db.session.commit()
