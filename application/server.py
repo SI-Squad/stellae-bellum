@@ -83,9 +83,24 @@ def handle_create_room_form():
             # TODO: Add game/room to database
             # TODO: Add user to database (this will require using the game's id)
             #return redirect('/waiting-room')
+            game_object = models.Game(room_name=room_name, room_password=room_password)
+            db.session.add(game_object)
+            db.session.commit()
+
+            # color = randrange(1,255) DOES NOT RANDOMIZE COLOR PER PLAYER
+            newp = models.Player(name=name, color="#CCFF00", game_id=game_object.id)
+            db.session.add(newp)
+            db.session.commit()
+
+            players = models.Player.query.all() # these four lines are for testing purposes
+            print(players)
+            games = models.Game.query.all()
+            print(games)
+            return redirect('/waiting-room')
         else:
             return render_template("/create-room.html", error="Passwords do not match")
-    
+    else:
+        return redirect('/create-room')
 
 
 @app.route('/join-room-form', methods=["POST"])
@@ -99,13 +114,17 @@ def handle_join_room_form():
         room_name = request.form.get('room-name')
         room_password = request.form.get('room-password')
 
-        # TODO: Look for room in database
+        game = models.Game.query.filter_by(room_name=room_name).first()
+        if room_password == game.room_password:
+            newp = models.Player(name=name, color="#CCFF00", game_id=game.id)
+            db.session.add(newp)
+            db.session.commit()
 
-        if room_password == "correct": # TODO: Verify password is correct
-            # TODO: create a new player in the database (you'll need the game's id)
+            players = models.Player.query.all() # these four lines are for testing purposes
+            print(players)
+            games = models.Game.query.all()
+            print(games)
             return redirect('/waiting-room')
-        else:
-            return redirect('/enter-room')
     else:
         return redirect('/enter-room')
 
