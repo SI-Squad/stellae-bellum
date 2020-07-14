@@ -77,12 +77,9 @@ def handle_create_room_form():
             room_name_exists = models.Game.query.filter_by(room_name=models.Game().room_name).first()
             if room_name_exists != None:
                 return render_template("/create-room.html", error="Room name already taken")
-                ## This isn't needed for create room but will be useful for join room ##
-                #this_game_id = room_name_exists.id
-                #name_exists = models.Player.query.filter_by(room_id=models.Player().game_id, db_name=models.Player().name).first()
-                #if name_exists != None:
-                    #return render_template("/create-room.html", error="Name already taken")
+                
             return redirect('/waiting-room')
+
             # TODO: Add game/room to database
             # TODO: Add user to database (this will require using the game's id)
             #return redirect('/waiting-room')
