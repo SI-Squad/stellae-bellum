@@ -22,6 +22,7 @@
       </div>
       <div class="row"></div>
         <form action="/create-room-form" method="POST" name="readonly-form">
+          {{error}}
           <div class="form-group">
             <label for="name">Your Name</label>
             <input type="text" class="form-control" id="name" name="name" placeholder="Luke Bellum" required>

@@ -74,6 +74,12 @@ def handle_create_room_form():
         elif confirmed_password == None or confirmed_password == "":
             return render_template("/create-room.html", error="Please confirm password")
         elif room_password == confirmed_password:
+            room_name_exists = models.Game.query.filter_by(room_name=models.Game().room_name).first()
+            if room_name_exists != None:
+                return render_template("/create-room.html", error="Room name already taken")
+              
+
+       
             game_object = models.Game(room_name=room_name, room_password=room_password)
             db.session.add(game_object)
             db.session.commit()
