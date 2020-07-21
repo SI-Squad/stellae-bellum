@@ -79,7 +79,7 @@ def handle_create_room_form():
             print(players)
             games = models.Game.query.all()
             print(games)
-            return redirect('/waiting-room')
+            return redirect('/open-room')
     else:
         return redirect('/create-room')
 
@@ -228,21 +228,19 @@ def get_board_helper(username):
 @app.route('/get-competitors-boards', methods=["POST"])
 def get_competitors_board():
     if request.method == 'POST':
-        room_name = request.form.get('room-name')
-        username = request.form.get('username')    
+        content = request.get_json(force=True)
+        room_name = content['room-name']
+        username = content['username']    
 
-        game = models.Game.query.filter_by(room_name=room_name).first()    
+        game = models.Game.query.filter_by(room_name=room_name).first()   
         players = models.Player.query.filter_by(game_id=game.id).all()
         participants = [player.name for player in players]
 
-        participants = []
         boards = dict()
-        boards["name1"] = "board1"
-        boards["name2"] = "board2"
         participants.remove(username)
         for participant in participants:
             boards[participant] = get_board_helper(participant)
-            
+        print(boards)
         return jsonify(boards)
 
 if __name__ == "__main__":
