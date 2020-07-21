@@ -27,6 +27,9 @@ class Board(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     owner_id = db.Column(db.Integer, db.ForeignKey('player.id'))
 
+    def __repr__(self):
+        return "<Board: id={}, owner_id={}>".format(self.id, self.owner_id)
+
 
 class Player(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -21,14 +21,19 @@
         <h1 class="display-3 text-center mx-auto" id="page-title">Enter Room</h1>
       </div>
       <div class="row"></div>
+
+      {{error}}
+        <form>
+
         <form action="/join-room-form" method="POST">
+          
           <div class="form-group">
             <label for="username">Your Name</label>
-            <input type="text" class="form-control" name="name" placeholder="Luke Bellum" required>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Luke Bellum" required>
             <label for="enterRoomName">Room Name</label>
-            <input type="text" class="form-control" name="room-name" placeholder="Stellae Bellum" required>
+            <input type="text" class="form-control" id="room-name" name="room-name" placeholder="Stellae Bellum" required>
             <label for="enterRoomPassword">Room Password</label>
-            <input type="password" class="form-control" name="room-password" placeholder="p@$$w0rd" required>
+            <input type="password" class="form-control" id="room-password" name="room-password" placeholder="p@$$w0rd" required>
           </div>
           <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit" onclick="setUsername(document.getElementById('name').value); setRoomName(document.getElementById('room-name').value)">Enter Room</button>
           <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit" onclick="clearLocalStorage(); document.location='/'">Return Home</button>

@@ -12,14 +12,13 @@ function getCells(){
 }
 
 function sendJSON(object){
-    $.post("http://127.0.0.1:5000/create-board-endpoint", object, function(data,status){},"json");
+    $.post("http://127.0.0.1:5000/create-board-endpoint", object, function(data,status){console.log("oop");document.location='/gameroom'},"json");
     };
 
 function getBoard(){
-    console.log("Got Here.");
     var cells = getCells();
     var board = Object();
-    board.name = "Alex";
+    board.name = getUsername();
     board.ships = new Array();
     for(var i = 0; i < 10; i++){
         for(var j = 0; j < 10; j++){
