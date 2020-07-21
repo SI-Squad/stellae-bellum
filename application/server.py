@@ -65,7 +65,21 @@ def handle_create_room_form():
         room_password = request.form.get('room-password')
         confirmed_password = request.form.get('confirmed-room-password')
 
-        if room_password == confirmed_password:
+        if name == None or name == "":
+            return render_template("/create-room.html", error="All fields must be filled")
+        elif room_name == None or room_name == "":
+            return render_template("/create-room.html", error="Room needs a name")
+        elif room_password == None or room_password == "":
+            return render_template("/create-room.html", error="Password required")
+        elif confirmed_password == None or confirmed_password == "":
+            return render_template("/create-room.html", error="Please confirm password")
+        elif room_password == confirmed_password:
+            room_name_exists = models.Game.query.filter_by(room_name=models.Game().room_name).first()
+            if room_name_exists != None:
+                return render_template("/create-room.html", error="Room name already taken")
+              
+
+       
             game_object = models.Game(room_name=room_name, room_password=room_password)
             db.session.add(game_object)
             db.session.commit()
@@ -80,6 +94,8 @@ def handle_create_room_form():
             games = models.Game.query.all()
             print(games)
             return redirect('/open-room')
+        else:
+            return render_template("/create-room.html", error="Passwords do not match")
     else:
         return redirect('/create-room')
 
