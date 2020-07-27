@@ -93,7 +93,7 @@ def handle_create_room_form():
             print(players)
             games = models.Game.query.all()
             print(games)
-            return redirect('/waiting-room')
+            return redirect('/open-room')
         else:
             return render_template("/create-room.html", error="Passwords do not match")
     else:
@@ -215,7 +215,6 @@ def get_board():
         respose = get_board_helper(username)
         return respose
 
-
 def get_board_helper(username):
     player = models.Player.query.filter_by(name=username).first()
     board = models.Board.query.filter_by(owner_id=player.id).first()
@@ -242,8 +241,23 @@ def get_board_helper(username):
         return response
 
 
-    
+@app.route('/get-competitors-boards', methods=["POST"])
+def get_competitors_board():
+    if request.method == 'POST':
+        content = request.get_json(force=True)
+        room_name = content['room-name']
+        username = content['username']    
 
+        game = models.Game.query.filter_by(room_name=room_name).first()   
+        players = models.Player.query.filter_by(game_id=game.id).all()
+        participants = [player.name for player in players]
+
+        boards = dict()
+        participants.remove(username)
+        for participant in participants:
+            boards[participant] = get_board_helper(participant)
+        print(boards)
+        return jsonify(boards)
 
 if __name__ == "__main__":
     app.run(debug=True)
