@@ -259,5 +259,20 @@ def get_competitors_board():
         print(boards)
         return jsonify(boards)
 
+def attack(attacking_player, attacked_player, coordinate):
+    player_to_attack = models.Player.query.filter_by(name=attacked_player).first()
+    player_board = models.Board.query.filter_by(owner_id=player_to_attack.id).first()
+    coordinates = coordinate.split(",")
+
+    cell = models.Cell.query.filter_by(board_id=player_board.id, row=coordinates[0], column=coordinates[1]).first()
+    if cell.piece_id != null:
+        cell.damaged = True
+        return jsonify(success="Hit!")
+    else:
+        return jsonify(success="Miss!")
+
+                        
+
+
 if __name__ == "__main__":
     app.run(debug=True)
