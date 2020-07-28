@@ -259,6 +259,7 @@ def get_competitors_board():
         print(boards)
         return jsonify(boards)
 
+@app.route('/attack-cell-endpoint', methods=["POST"])
 def attack(attacking_player, attacked_player, coordinate):
     player_to_attack = models.Player.query.filter_by(name=attacked_player).first()
     player_board = models.Board.query.filter_by(owner_id=player_to_attack.id).first()
@@ -272,7 +273,5 @@ def attack(attacking_player, attacked_player, coordinate):
         return jsonify(success="Miss!")
 
                         
-
-
 if __name__ == "__main__":
     app.run(debug=True)
