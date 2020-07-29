@@ -74,7 +74,7 @@ def handle_create_room_form():
         elif confirmed_password == None or confirmed_password == "":
             return render_template("/create-room.html", error="Please confirm password")
         elif room_password == confirmed_password:
-            room_name_exists = models.Game.query.filter_by(room_name=models.Game().room_name).first()
+            room_name_exists = db.session.query(models.Game).filter_by(room_name=room_name).first()
             if room_name_exists != None:
                 return render_template("/create-room.html", error="Room name already taken")
               
@@ -89,9 +89,9 @@ def handle_create_room_form():
             db.session.add(newp)
             db.session.commit()
 
-            players = models.Player.query.all() # these four lines are for testing purposes
+            players = db.session.query(models.Player).all() # these four lines are for testing purposes
             print(players)
-            games = models.Game.query.all()
+            games = db.session.query(models.Game).all()
             print(games)
             return redirect('/open-room')
         else:
@@ -106,6 +106,7 @@ def handle_join_room_form():
     This endpoint should be accessed from the join-room page.
     The page should send the data using a form.
     """
+    print("What")
     if request.method == 'POST':
         name = request.form.get('name')
         room_name = request.form.get('room-name')
@@ -118,7 +119,7 @@ def handle_join_room_form():
         elif room_password == None or room_password == "":
             return render_template("/enter-room.html", error="Password required")
         
-        game = models.Game.query.filter_by(room_name=room_name).first()
+        game = db.session.query(models.Game).filter_by(room_name=room_name).first()
         if game == None or game == "":
             return render_template("/enter-room.html", error="Game with that name does not exist")
         if room_password != game.room_password:
@@ -128,9 +129,9 @@ def handle_join_room_form():
             db.session.add(newp)
             db.session.commit()
 
-            players = models.Player.query.all() # these four lines are for testing purposes
+            players = db.session.query(models.Player).all() # these four lines are for testing purposes
             print(players)
-            games = models.Game.query.all()
+            games = db.session.query(models.Game).all()
             print(games)
             return redirect('/waiting-room')
     else:
@@ -146,11 +147,11 @@ def update_room_participants():
     if request.method == 'POST':
         room_name = request.values.get('room-name')
 
-        game = models.Game.query.filter_by(room_name=room_name).first()
+        game = db.session.query(models.Game).filter_by(room_name=room_name).first()
         if (game == None):
             return "Oopsies. Looks like something went wrong"
         else:     
-            players = models.Player.query.filter_by(game_id=game.id).all()
+            players = db.session.query(models.Player).filter_by(game_id=game.id).all()
 
             participants = [player.name for player in players]
 
@@ -168,7 +169,7 @@ def create_board_endpoint():
         name = content["name"]
         ships = content["ships"]
 
-        player = models.Player.query.filter_by(name=name).first()
+        player = db.session.query(models.Player).filter_by(name=name).first()
         if player == None:
             return "Oopsies. Something went wrong :("
 
@@ -191,14 +192,14 @@ def create_board_endpoint():
             db.session.commit()
 
             for cell in player_cells:
-                empty_cell = models.Cell.query.filter_by(board_id=board_object.id, row=cell["row"], column=cell["col"]).first()
+                empty_cell = db.session.query(models.Cell).filter_by(board_id=board_object.id, row=cell["row"], column=cell["col"]).first()
                 empty_cell.piece_id = ship_object.id
                 db.session.commit()
 
         # The following lines are for debugging/understanding purposes
-        boards = models.Board.query.all()
-        ships = models.Piece.query.all()
-        cells = models.Cell.query.all()
+        boards = db.session.query(models.Board).all()
+        ships = db.session.query(models.Piece).all()
+        cells = db.session.query(models.Cell).all()
         print(boards)
         print(ships)
         print(cells)
@@ -216,8 +217,8 @@ def get_board():
         return respose
 
 def get_board_helper(username):
-    player = models.Player.query.filter_by(name=username).first()
-    board = models.Board.query.filter_by(owner_id=player.id).first()
+    player = db.session.query(models.Player).filter_by(name=username).first()
+    board = db.session.query(models.Board).filter_by(owner_id=player.id).first()
 
     if board == None:
         return {}
@@ -228,7 +229,7 @@ def get_board_helper(username):
         for i in range(10):
             row = []
             for j in range(10):
-                cell = models.Cell.query.filter_by(board_id=board.id, row=i, column=j).first()
+                cell = db.session.query(models.Cell).filter_by(board_id=board.id, row=i, column=j).first()
                 if cell.damaged and cell.revealed:
                     row.append("X")
                 elif cell.damaged:
@@ -248,8 +249,8 @@ def get_competitors_board():
         room_name = content['room-name']
         username = content['username']    
 
-        game = models.Game.query.filter_by(room_name=room_name).first()   
-        players = models.Player.query.filter_by(game_id=game.id).all()
+        game = db.session.query(models.Game).filter_by(room_name=room_name).first()   
+        players = db.session.query(models.Player).filter_by(game_id=game.id).all()
         participants = [player.name for player in players]
 
         boards = dict()
