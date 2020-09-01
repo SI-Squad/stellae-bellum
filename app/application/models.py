@@ -1,4 +1,4 @@
-from server import db
+from application.server import db
 
 class Cell(db.Model):
     id = db.Column(db.Integer, primary_key=True)
