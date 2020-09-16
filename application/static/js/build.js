@@ -32,13 +32,14 @@ function getBoard(){
                 ship.type = "fighter";
                 ship.cells = Array.of({row:i,col:j});
                 board.ships.push(ship);
+                add_ship_to_board(ship.type,ship.cells) //added to test add_ship_to_board
             }
         }
     }
     sendJSON(JSON.stringify(board));
 
     console.log(JSON.stringify(board));
-
+    print(onboard);
 }
 
 // function to add a ship with a specific type and it's associated cells to the board, the global variable
