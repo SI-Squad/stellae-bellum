@@ -268,8 +268,10 @@ def attack(attacking_player, attacked_player, coordinate):
     cell = models.Cell.query.filter_by(board_id=player_board.id, row=coordinates[0], column=coordinates[1]).first()
     if cell.piece_id != null:
         cell.damaged = True
+        print("Hit!")
         return jsonify(success="Hit!")
     else:
+        print("Miss!")
         return jsonify(success="Miss!")
 
                         
