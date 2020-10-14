@@ -1,6 +1,6 @@
 // global variable that is used to hold the cells where ships are placed
 var onboard = Object();
-onboard.shiplist = new Array(5);
+onboard.shiplist = new Array();
 
 
 function getCells(){
@@ -37,9 +37,7 @@ function getBoard(){
         }
     }
     sendJSON(JSON.stringify(board));
-
     console.log(JSON.stringify(board));
-    print(onboard);
 }
 
 // function to add a ship with a specific type and it's associated cells to the board, the global variable
