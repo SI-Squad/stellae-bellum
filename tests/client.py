@@ -3,18 +3,17 @@ import pytest
 
 import os
 import sys
-sys.path.append(os.path.abspath('../application'))
+sys.path.append(os.path.abspath('../app'))
 
-import server
-
+from application import app
 
 @pytest.fixture
 def client():
-    db_fd, server.app.config['DATABASE'] = tempfile.mkstemp()
-    server.app.config['TESTING'] = True
+    db_fd, app.config['DATABASE'] = tempfile.mkstemp()
+    app.config['TESTING'] = True
 
-    with server.app.test_client() as client:
+    with app.test_client() as client:
         yield client
 
     os.close(db_fd)
-    os.unlink(server.app.config['DATABASE'])
+    os.unlink(app.config['DATABASE'])
