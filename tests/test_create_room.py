@@ -35,7 +35,7 @@ def test_create_room_form_name_failure(client):
     rv = client.post('/create-room-form', data=mock_request_data, follow_redirects=True)
     assert b'Please enter a name' in rv.data
 
-def test_create_room_form_room_name_failure(client):
+def test_create_room_form_no_room_name_failure(client):
     #no room name ented
     mock_request_data = {
         'name': 'Test Name',
@@ -45,10 +45,8 @@ def test_create_room_form_room_name_failure(client):
     }
     rv = client.post('/create-room-form', data=mock_request_data, follow_redirects=True)
     assert b'Room needs a name' in rv.data
-    #room name taken
-    #code here
 
-def test_create_room_form_room_name_failure(client):
+def test_create_room_form_room_name_taken_failure(client):
     #room name taken
     room_name = str(time.time())
     mock_request_data_init = {
@@ -67,7 +65,7 @@ def test_create_room_form_room_name_failure(client):
     rv = client.post('/create-room-form', data=mock_request_data, follow_redirects=True)
     assert b'Room name already taken' in rv.data
 
-def test_create_room_form_password_failure(client):
+def test_create_room_form_no_password_failure(client):
     #no password entered
     mock_request_data = {
         'name': 'Test Name',
@@ -78,7 +76,7 @@ def test_create_room_form_password_failure(client):
     rv = client.post('/create-room-form', data=mock_request_data, follow_redirects=True)
     print(rv.data)
     assert b'Password required' in rv.data
-def test_create_room_form_password_failure_two(client):
+def test_create_room_form_no_confirmed_password_failure(client):
     #no confirmed password entered
     mock_request_data = {
         'name': 'Test Name',
@@ -88,7 +86,7 @@ def test_create_room_form_password_failure_two(client):
     }
     rv = client.post('/create-room-form', data=mock_request_data, follow_redirects=True)
     assert b'Please confirm password' in rv.data
-def test_create_room_form_password_failure_three(client):
+def test_create_room_form_no_match_password_failure(client):
     #passwords do not match
     mock_request_data = {
         'name': 'Test Name',
