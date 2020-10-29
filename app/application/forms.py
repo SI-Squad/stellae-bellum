@@ -18,7 +18,7 @@ def handle_create_room_form():
         confirmed_password = request.form.get('confirmed-room-password')
 
         if name == None or name == "":
-            return render_template("/create-room.html", error="All fields must be filled")
+            return render_template("/create-room.html", error="Please enter a name")
         elif room_name == None or room_name == "":
             return render_template("/create-room.html", error="Room needs a name")
         elif room_password == None or room_password == "":
@@ -45,6 +45,7 @@ def handle_create_room_form():
             print(players)
             games = db.session.query(Game).all()
             print(games)
+
             return redirect('/open-room')
         else:
             return render_template("/create-room.html", error="Passwords do not match")

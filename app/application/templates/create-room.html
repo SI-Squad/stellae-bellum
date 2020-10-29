@@ -25,13 +25,13 @@
           {{error}}
           <div class="form-group">
             <label for="name">Your Name</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Luke Bellum" required>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Luke Bellum">
             <label for="room-name">Room Name</label>
-            <input type="text" class="form-control" id="room-name" name="room-name" placeholder="Stellae Bellum" required>
+            <input type="text" class="form-control" id="room-name" name="room-name" placeholder="Stellae Bellum">
             <label for="room-password">Room Password</label>
-            <input type="password" class="form-control" id="room-password" name="room-password" placeholder="p@$$w0rd" required>
+            <input type="password" class="form-control" id="room-password" name="room-password" placeholder="p@$$w0rd">
             <label for="confirm-room-password">Confirm Room Password</label>
-            <input type="password" class="form-control"id="confirmed-room-password" name="confirmed-room-password" placeholder="p@$$w0rd" required>
+            <input type="password" class="form-control"id="confirmed-room-password" name="confirmed-room-password" placeholder="p@$$w0rd">
           </div>
           <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit" onclick="setUsername(document.getElementById('name').value); setRoomName(document.getElementById('room-name').value)">Create Room</button>
           <button class="btn btn-lg btn-primary btn-block default-primary-color" type="submit" onclick="clearLocalStorage(); document.location='/'">Return Home</button>
