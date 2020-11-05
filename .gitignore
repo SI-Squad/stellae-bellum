@@ -9,3 +9,5 @@ pyvenv.cfg
 *.pytest_cache
 *env
 *.db-journal
+*.pyc
+get-pip.py
